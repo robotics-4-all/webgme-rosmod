@@ -2,15 +2,20 @@
 'use strict';
 var config = require('./config.webgme'),
     validateConfig = require('webgme/config/validator');
+var path = require('path');
 
 // Overwrite options as needed
-config.server.port = 8080;
-//config.mongo.uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/cnn-creator';
+config.server.port = 8000;
+config.mongo.uri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/rosmod";
 
 // Authentication
 config.authentication.enable = true;
-config.authentication.allowGuests = true;
-//config.authentication.logOutUrl = '/login';
+config.authentication.allowGuests = false;
+config.authentication.logOutUrl = '/login';
+config.authentication.allowUserRegistration = false;
+config.authentication.jwt.privateKey = path.join(__dirname, '..', 'token_keys', 'private_key');
+config.authentication.jwt.publicKey = path.join(__dirname, '..', 'token_keys', 'public_key');
+config.authentication.inferredUsersCanCreate = false;
 
 // Executors
 config.executor.enable = true;
